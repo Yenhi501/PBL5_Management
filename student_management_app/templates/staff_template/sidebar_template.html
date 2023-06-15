@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage</title>
+</head>
+<style>
+  .nav__name{
+    margin-left: 11px;
+  }
+  .nav__link {
+  display: flex;
+  align-items: center;
+  margin-left: 22px;
+  }
+
+  .nav__link:hover {
+    color: var(--first-color);
+  }
+    .nav__dropdown {
+    overflow: hidden;
+    max-height: 21px;
+    transition: 1.4s ease-in-out;
+    margin-bottom: 12px;
+    }
+
+    .nav__dropdown-collapse {
+    background-color: var(--first-color-light);
+    border-radius: .25rem;
+    margin-top:14px;
+  }
+  .nav__dropdown-content {
+    display: grid;
+    row-gap: .5rem;
+    /* padding: .75rem 2.5rem .75rem 1.8rem; */
+    margin-left: 24px;
+    margin-top: 8px;
+  }
+  .nav__dropdown-icon {
+    margin-left: 80px;
+    transition: .4s;
+  }
+  .nav__dropdown:hover {
+    max-height: 100rem;
+  }
+  .nav__dropdown:hover .nav__dropdown-icon {
+    transform: rotate(180deg);
+    color: #34AF6D;
+  }
+</style>
+<body>
+   <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{{ staff_home }}" class="brand-link">
+      <img src="{% static "dist/img/icon1.png" %}" alt="Python" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">PYTHON</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static "dist/img/ava1.png" %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="{% url 'staff_profile' %}" class="d-block">{{ user.username }}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <div class="nav__dropdown">
+          <a href="#" class="nav__link">
+            <i class="nav-icon fa fa-list" style="font-size: 18px;" aria-hidden="true"></i>
+            <span class="nav__name" style="margin-left: 18px;">Information</span>
+            <i class="nav-icon fa fa-angle-up nav__dropdown-icon" aria-hidden="true"></i>
+         </a>
+         <div class="nav__dropdown-collapse" style="margin-top: 16px;">
+          <div class="nav__dropdown-content">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'staff_home' as staff_home %}
+            <a href="{{ staff_home }}" class="nav-link {% if request.path == staff_home %} active {% endif %}">
+              <i class="nav-icon fa fa-home" aria-hidden="true"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'staff_take_attendance' as staff_take_attendance %}
+            <a href="{{ staff_take_attendance }}" class="nav-link {% if request.path == staff_take_attendance %} active {% endif %}">
+              <i class="nav-icon fa fa-clipboard" aria-hidden="true"></i>
+              <p>
+                Take Attendance
+              </p>
+            </a>
+          </li>
+           <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'staff_update_attendance' as staff_update_attendance %}
+            <a href="{{ staff_update_attendance }}" class="nav-link {% if request.path == staff_update_attendance %} active {% endif %}">
+              <i class="nav-icon fa fa-book" aria-hidden="true"></i>
+              <p>
+                View Update Attendance
+              </p>
+            </a>
+          </li>
+        
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'staff_add_result' as staff_add_result %}
+            <a href="{{ staff_add_result }}" class="nav-link {% if request.path == staff_add_result %} active {% endif %}">
+              <i class="nav-icon fa fa-plus-square" aria-hidden="true"></i>
+              <p>
+                Add Result
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'edit_student_result' as edit_student_result %}
+            <a href="{{ edit_student_result }}" class="nav-link {% if request.path == edit_student_result %} active {% endif %}">
+              <i class="nav-icon fa fa-list" aria-hidden="true"></i>
+              <p>
+                Edit Result
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'start_live_classroom' as start_live_classroom %}
+            <a href="{{ start_live_classroom }}" class="nav-link {% if request.path == start_live_classroom %} active {% endif %}">
+              <i class="nav-icon fa fa-folder-open" aria-hidden="true"></i>
+              <p>
+                Start Live Class Room
+              </p>
+            </a>
+          </li>
+
+           <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'staff_all_notification' as staff_all_notification %}
+            <a href="{{ staff_all_notification }}" class="nav-link {% if request.path == staff_all_notification %} active {% endif %}">
+              <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
+              <p>
+                Notifications
+              </p>
+            </a>
+          </li>
+          
+        </ul>
+        </div>
+        </div>
+
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+</body>
+</html>
+ 

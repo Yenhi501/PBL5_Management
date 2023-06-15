@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage</title>
+</head>
+<style>
+  .nav__name{
+    margin-left: 11px;
+  }
+  .nav__link {
+  display: flex;
+  align-items: center;
+  margin-left: 22px;
+  }
+
+  .nav__link:hover {
+    color: var(--first-color);
+  }
+    .nav__dropdown {
+    overflow: hidden;
+    max-height: 21px;
+    transition: 1.4s ease-in-out;
+    margin-bottom: 12px;
+    }
+
+    .nav__dropdown-collapse {
+    background-color: var(--first-color-light);
+    border-radius: .25rem;
+    margin-top:14px;
+  }
+  .nav__dropdown-content {
+    display: grid;
+    row-gap: .5rem;
+    /* padding: .75rem 2.5rem .75rem 1.8rem; */
+    margin-left: 24px;
+    margin-top: 8px;
+  }
+  .nav__dropdown-icon {
+    margin-left: 80px;
+    transition: .4s;
+  }
+  .nav__dropdown:hover {
+    max-height: 100rem;
+  }
+  .nav__dropdown:hover .nav__dropdown-icon {
+    transform: rotate(180deg);
+    color: #34AF6D;
+  }
+</style>
+<body>
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'student_home' %}" class="brand-link">
+      <img src="{% static "dist/img/icon1.png" %}" alt="Python" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">PYTHON</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          {% comment %} <img src="{% static "dist/img/ava1.png" %}" class="img-circle elevation-2" alt="User Image"> {% endcomment %}
+          <img src={{user.students.profile_pic}} class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="{% url 'student_profile' %}" class="d-block">{{ user.username }}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <div class="nav__dropdown">
+          <a href="#" class="nav__link">
+            <i class="nav-icon fa fa-list" style="font-size: 18px;" aria-hidden="true"></i>
+            <span class="nav__name" style="margin-left: 18px;">Information</span>
+            <i class="nav-icon fa fa-angle-up nav__dropdown-icon" aria-hidden="true"></i>
+         </a>
+         <div class="nav__dropdown-collapse" style="margin-top: 16px;">
+          <div class="nav__dropdown-content">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'student_home' as student_home %}
+            <a href="{{ student_home }}" class="nav-link {% if request.path == student_home %} active {% endif %}">
+              <i class="nav-icon fa fa-home" aria-hidden="true"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'student_view_attendance' as student_view_attendance %}
+            {% url 'student_view_attendance_post' as student_view_attendance_post %}
+            <a href="{{ student_view_attendance }}" class="nav-link {% if request.path == student_view_attendance %} active {% endif %} {% if request.path == student_view_attendance_post %} active {% endif %}">
+              <i class="nav-icon fa fa-book" aria-hidden="true"></i>
+              <p>
+                View Attendance
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" style="margin-bottom: 6px;  padding-right: 30px">
+            {% url 'view_subject' as view_subject %}
+            <a href="{% url 'view_subject' %}" class="nav-link {% if request.path == view_subject %} active {% endif %} ">
+              <i class="nav-icon fa fa-cog" aria-hidden="true"></i>
+              <p>
+                View Subject
+              </p>
+            </a>
+          </li>
+           {% comment %} <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'student_apply_leave' as student_apply_leave %}
+            <a href="{{ student_apply_leave }}" class="nav-link {% if request.path == student_apply_leave %} active {% endif %}">
+              <i class="nav-icon fa fa-envelope-open" aria-hidden="true"></i>
+              <p>
+                Apply for Leave
+              </p>
+            </a>
+          </li> {% endcomment %}
+           
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'student_view_result' as student_view_result %}
+            <a href="{{ student_view_result }}" class="nav-link {% if request.path == student_view_result %} active {% endif %}">
+              <i class="nav-icon fa fa-tasks" aria-hidden="true"></i>
+              <p>
+                Grade Card
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'student_all_notification' as student_all_notification %}
+            <a href="{{ student_all_notification }}" class="nav-link {% if request.path == student_all_notification %} active {% endif %}">
+              <i class="nav-icon fa fa-bell" aria-hidden="true"></i>
+              <p>
+                Notifications
+              </p>
+            </a>
+          </li>
+          {% comment %} <li class="nav-item" style="margin-bottom: 6px;">
+            {% url 'student_attendance_status' as student_attendance_status %}
+            <a href="{{ student_attendance_status }}" class="nav-link {% if request.path == student_attendance_status %} active {% endif %}">
+              <i class="nav-icon fa fa-folder-open" aria-hidden="true"></i>
+              <p>
+                Check Attendance Status
+              </p>
+            </a>
+          </li> {% endcomment %}
+
+        </ul>
+          </div>
+         </div>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+</body>
+</html>
+  
